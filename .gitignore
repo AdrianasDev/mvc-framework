@@ -1,0 +1,12 @@
+# git-ignore file
+
+*.zip
+composer.phar
+composer.json
+system/views/smarty/templates_c/*.php
+system/views/smarty/cache/*.php
+
+# eclipse project files
+.settings
+.project
+.buildpath
