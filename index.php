@@ -1,11 +1,17 @@
 <?php
 
-require 'system/models/propel-setup.php';
-require 'autoload.php';
+require 'config.php';
 
 include 'debug.php';
 
-$postcontroller = new PostController();
-$all_posts = $postcontroller->index();
+$router = new AltoRouter($routes, DS . APP_ROOT_BASE);
+$match = $router->match();
 
-debug($all_posts);
+if (!$match) {
+    throw new Exception('The requested URL did not match a configured route!');
+}
+else {
+    
+}
+
+debug($match);

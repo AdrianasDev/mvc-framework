@@ -2,7 +2,6 @@
 
 *.zip
 composer.phar
-composer.json
 system/views/smarty/templates_c/*.php
 system/views/smarty/cache/*.php
 
