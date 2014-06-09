@@ -9,9 +9,14 @@ class PostController extends Controller
         parent::__construct();
     }
     
-    function index()
+    public function index()
     {
         $posts = PostQuery::create()->find();
         return $posts;
+    }
+    
+    public function view($id) {
+    	$post = PostQuery::create()->findById($id);
+    	return $post;
     }
 }

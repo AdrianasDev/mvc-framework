@@ -23,7 +23,6 @@ $dbconfig = array(
 /**
  * Router configuration.
  */
-
 require 'libs/AltoRouter/AltoRouter.php';
 
 $routes = array(
@@ -34,5 +33,6 @@ $routes = array(
 /**
  * Include autoloaders.
  */
-require 'system/models/propel-setup.php';
+
 require 'autoload.php';
+require 'system/models/propel-setup.php';

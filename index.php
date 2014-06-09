@@ -11,7 +11,11 @@ if (!$match) {
     throw new Exception('The requested URL did not match a configured route!');
 }
 else {
-    $dispatcher = new Dispatcher($match);    
+    $dispatcher = new Dispatcher($match);
+    $data = $dispatcher->run();    
 }
 
+debug($match);
 debug($dispatcher);
+debug($data);
+

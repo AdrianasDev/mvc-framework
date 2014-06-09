@@ -20,13 +20,17 @@ spl_autoload_register('loadController');
 
 function loadClasses($class)
 {
-    $filename = SYSTEM_PATH . DS . $class . '.class.php';
-    
-    if (file_exists($filename)) {
-        require_once $filename;
-    }
-    else {
-        throw new Exception('Could not autoload ' . $filename);
+    $registered_classes = array('Dispatcher');
+    $index = array_search($class, $registered_classes);
+    if (is_int($index)) {
+        $filename = SYSTEM_PATH . DS . $class . '.class.php';
+        
+        if (file_exists($filename)) {
+            require_once $filename;
+        }
+        else {
+            throw new Exception('Could not autoload ' . $filename);
+        }
     }
 }
 
