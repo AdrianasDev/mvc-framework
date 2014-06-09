@@ -7,7 +7,8 @@ define('DS', DIRECTORY_SEPARATOR);
 define('APP_ROOT', dirname(__FILE__));
 define('APP_ROOT_BASE', basename(dirname(__FILE__)));
 define('LIBS_PATH', APP_ROOT . DS . 'libs');
-define('CONTROLLER_PATH', APP_ROOT . DS . 'system' . DS . 'controllers');
+define('SYSTEM_PATH', APP_ROOT . DS . 'system');
+define('CONTROLLER_PATH', SYSTEM_PATH . DS . 'controllers');
 define('APP_NAME', 'CMSproject');
 
 /**

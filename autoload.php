@@ -5,7 +5,7 @@ function loadController($class)
     if (strpos($class, 'Controller')) {
         $filename = $class . '.php';
         $classname = strstr($class, 'Controller', true);
-        $path = 'system/controllers/' . $classname . '/' . $filename;
+        $path = CONTROLLER_PATH . DS . $classname . '/' . $filename;
         
         if (file_exists($path)) {
             require_once $path;
@@ -18,3 +18,16 @@ function loadController($class)
 
 spl_autoload_register('loadController');
 
+function loadClasses($class)
+{
+    $filename = SYSTEM_PATH . DS . $class . '.class.php';
+    
+    if (file_exists($filename)) {
+        require_once $filename;
+    }
+    else {
+        throw new Exception('Could not autoload ' . $filename);
+    }
+}
+
+spl_autoload_register('loadClasses');
