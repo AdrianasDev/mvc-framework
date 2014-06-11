@@ -1,21 +1,13 @@
 <?php
 
 require 'config.php';
+require 'application.php';
 
 include 'debug.php';
 
 $router = new AltoRouter($routes, DS . APP_ROOT_BASE);
-$match = $router->match();
+$application = new Application();
+$application->setRouter($router);
+$application->run();
 
-if (!$match) {
-    throw new Exception('The requested URL did not match a configured route!');
-}
-else {
-    $dispatcher = new Dispatcher($match);
-    $data = $dispatcher->run();    
-}
-
-debug($match);
-debug($dispatcher);
-debug($data);
-
+debug($application);

@@ -43,7 +43,7 @@ class Dispatcher
         $this->params = $params;
     }
     
-    public function run()
+    public function getData()
     {
         foreach($this->params as $key => $value){
             $p[] = $value;
@@ -53,5 +53,12 @@ class Dispatcher
         $action = $this->action;
         $result = $ctrlr->$action($p);
         return $result;
+    }
+    
+    public function getTemplate()
+    {
+        $dir = strtolower(strstr($this->controller, 'Controller', true));
+        $file = TEMPLATE_PATH . DS . $dir . DS . $this->action . '.tpl';
+        return file_get_contents($file); 
     }
 }
