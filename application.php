@@ -7,6 +7,7 @@ class Application
     protected $route;
     protected $dispatcher;
     protected $model;
+    protected $entitymanager;
     protected $controller;
     protected $template;
     
@@ -36,6 +37,8 @@ class Application
             $this->controller->addModel($this->dispatcher->getModel());
             $this->controller->setAction($this->dispatcher->getAction());
             $this->controller->setParams($this->dispatcher->getParams());
+            
+            $this->entitymanager = new EntityManager();
         }
     }
     

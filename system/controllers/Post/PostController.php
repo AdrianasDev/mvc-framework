@@ -20,5 +20,8 @@ class PostController extends BaseController
     public function create()
     {
         $this->model['Post'] = new Post();
+        $this->model['Post']->setTitle('The Third Post.');
+        $this->model['Post']->setBody('The Body for The Third Post.');
+        $this->model['Post']->save();
     }
 }

@@ -14,15 +14,6 @@ define('TEMPLATE_PATH', SYSTEM_PATH . DS . 'views' . DS . 'smarty' . DS . 'templ
 define('APP_NAME', 'CMSproject');
 
 /**
- * Database connection configuration
- */
-$dbconfig = array(
-	'dsn' => 'mysql:host=localhost;dbname=CMSproject',
-	'user' => 'arjan',
-	'password' => 'Midas.645',
-);
-
-/**
  * Router configuration.
  */
 require 'libs/AltoRouter/AltoRouter.php';
