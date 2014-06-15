@@ -1,8 +1,6 @@
 <?php
 
-require '/system/controllers/controller.php';
-
-class PostController extends Controller
+class PostController extends BaseController
 {
     public function __construct()
     {
@@ -11,12 +9,16 @@ class PostController extends Controller
     
     public function index()
     {
-        $posts = PostQuery::create()->find();
-        return $posts;
+        
     }
     
-    public function view($id) {
-    	$post = PostQuery::create()->findById($id);
-    	return $post;
+    public function view($id) 
+    {
+    	echo $id;
+    }
+    
+    public function create()
+    {
+        $this->model['Post'] = new Post();
     }
 }

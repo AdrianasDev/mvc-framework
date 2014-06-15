@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<database name="CMSproject" defaultIdMethod="native">
-	<table name="post" phpName="Post">
-        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-        <column name="title" type="varchar" size="255" required="true" />
-        <column name="body" type="longvarchar" />
-	</table>
-</database>

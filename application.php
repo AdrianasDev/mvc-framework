@@ -2,11 +2,12 @@
 
 class Application
 {
+    protected $autoloader;
     protected $router;
     protected $route;
     protected $dispatcher;
+    protected $model;
     protected $controller;
-    protected $data;
     protected $template;
     
     public function setRouter($router)
@@ -14,7 +15,7 @@ class Application
         $this->router = $router;
     }
     
-    public function run()
+    public function init()
     {
         $this->route = $this->router->match();
         
@@ -22,10 +23,32 @@ class Application
             throw new Exception('The requested URL did not match a configured route!');
         }
         else {
+            $this->autoloader = new AutoLoader();
             $this->dispatcher = new Dispatcher($this->route);
-            $this->data = $this->dispatcher->getData();
+            $this->model = $this->dispatcher->getModel();
             $this->template = $this->dispatcher->getTemplate();
+            
+            $this->autoloader->addClass($this->dispatcher->getController(), 'Controller');
+            $this->autoloader->addClass($this->dispatcher->getModel(), 'Model');
+            
+            $this->setController();
+            
+            $this->controller->addModel($this->dispatcher->getModel());
+            $this->controller->setAction($this->dispatcher->getAction());
+            $this->controller->setParams($this->dispatcher->getParams());
         }
-        
     }
+    
+    private function setController() {
+        $cName = $this->dispatcher->getController();
+        $this->controller = new $cName;
+    }
+    
+    public function run()
+    {
+        call_user_func_array(
+            array($this->controller, $this->controller->getAction()), 
+            $this->controller->getParams());
+    }
+    
 }

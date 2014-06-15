@@ -1,37 +1,49 @@
 <?php
 
-function loadController($class) 
+class AutoLoader
 {
-    if (strpos($class, 'Controller')) {
-        $filename = $class . '.php';
-        $classname = strstr($class, 'Controller', true);
-        $path = CONTROLLER_PATH . DS . $classname . '/' . $filename;
-        
-        if (file_exists($path)) {
-            require_once $path;
+    protected $searchpaths = array(LIBS_PATH, SYSTEM_PATH, CONTROLLER_PATH, MODEL_PATH);
+    protected $registered_classes = array(
+        'BaseController',
+        'BaseModel',
+        'Dispatcher',
+        'Model' => array(),
+        'Controller' => array()
+    ); 
+    
+    public function __construct()
+    {
+        spl_autoload_register(array($this, 'load'));
+    }
+    
+    public function addClass($class, $type = null)
+    {
+        if ($type == null) {
+            $this->registered_classes[] = $class;
         }
         else {
-            throw new Exception('Could not autoload ' . $path);
-        }	
-    }
-}
-
-spl_autoload_register('loadController');
-
-function loadClasses($class)
-{
-    $registered_classes = array('Dispatcher');
-    $index = array_search($class, $registered_classes);
-    if (is_int($index)) {
-        $filename = SYSTEM_PATH . DS . $class . '.class.php';
-        
-        if (file_exists($filename)) {
-            require_once $filename;
-        }
-        else {
-            throw new Exception('Could not autoload ' . $filename);
+            $this->registered_classes[$type] = $class;
         }
     }
+    
+    public function load($class)
+    {
+        if (file_exists(LIBS_PATH . DS . $class)) {
+            require_once LIBS_PATH . DS . $class . DS . $class . '.php';
+        }
+        elseif (file_exists(SYSTEM_PATH . DS . $class . '.php')) {
+            require_once SYSTEM_PATH . DS . $class . '.php';
+        }
+        elseif (in_array($class, $this->registered_classes)) {
+            if (strpos($class, 'Controller')) {
+                $dir = strstr($class, 'Controller', true);
+                if (file_exists(CONTROLLER_PATH . DS . $dir . DS . $class . '.php')) {
+                    require_once CONTROLLER_PATH . DS . $dir . DS . $class . '.php';
+                }
+            }    
+            if (file_exists(MODEL_PATH . DS . $class . DS . $class . '.php')) {
+                require_once MODEL_PATH . DS . $class . DS . $class . '.php';
+            }
+        }
+    }
 }
-
-spl_autoload_register('loadClasses');
